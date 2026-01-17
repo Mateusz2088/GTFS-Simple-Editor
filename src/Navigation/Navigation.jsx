@@ -8,7 +8,7 @@ export default function Navigation() {
                 <li className="nav-item">
                     <Link to="/wczytaj">Wczytaj GTFS.zip</Link></li>
                 <li className="nav-item">
-                    <Link to="/dane">Edytuj dane</Link></li>
+                    <Link to="/dane">Edytuj dane zarządcy i przewoźników</Link></li>
                 <li className="nav-item">
                     <Link to="/kursy">Edytuj kursy</Link></li>
                 <li className="nav-item">
