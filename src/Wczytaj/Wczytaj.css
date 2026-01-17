@@ -1,0 +1,52 @@
+.container {
+    maxWidth:600px  ;
+    margin:0 auto  ;
+    padding:20px  ;
+    fontFamily:Arial, sans-serif'
+}
+.uploadArea {
+    border:2px dashed #ccc  ;
+    borderRadius:10px  ;
+    padding:40px  ;
+    textAlign:center  ;
+    marginBottom:20px'
+}
+.fileInput {
+    display:none;
+}
+.uploadLabel {
+    display:inline-block  ;
+    padding:10px 20px  ;
+    backgroundColor:#007bff  ;
+    color:white  ;
+    borderRadius:5px  ;
+    cursor:pointer  ;
+    fontSize:16px'
+}
+.progressContainer {
+    marginTop:20px  ;
+    textAlign:left'
+}
+.progressItem {
+    display:flex  ;
+    justifyContent:space-between  ;
+    marginBottom:8px  ;
+    padding:5px  ;
+    backgroundColor:#f8f9fa  ;
+    borderRadius:4px'
+}
+.fileName {
+    fontWeight:500'
+}
+.results {
+    marginTop:20px  ;
+    padding:15px  ;
+    backgroundColor:#e7f3ff  ;
+    borderRadius:8px'
+}
+.fileResult {
+    marginBottom:8px  ;
+    padding:8px  ;
+    backgroundColor:white  ;
+    borderRadius:4px'
+}
