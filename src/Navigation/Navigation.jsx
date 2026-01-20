@@ -12,9 +12,13 @@ export default function Navigation() {
                 <li className="nav-item">
                     <Link to="/kursy">Edytuj kursy</Link></li>
                 <li className="nav-item">
+                    <Link to="/ksztalty">Edytuj kształty</Link></li>
+                <li className="nav-item">
+                    <Link to="/trasy">Edytuj trasy</Link></li>
+                <li className="nav-item">
                     <Link to="/przystanki">Edytuj przystanki</Link></li>
                 <li className="nav-item">
-                    <Link to="/rozklad">Edytuj rozkład</Link></li>
+                    <Link to="/czasy-postoju">Edytuj czasy postoju</Link></li>
                 <li className="nav-item">
                     <Link to="/generuj">Generuj tabliczki</Link></li>
             </ul>
