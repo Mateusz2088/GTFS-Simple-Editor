@@ -7,6 +7,7 @@ import Dane from "./Dane/Dane.jsx";
 import Route404 from "./Route404/Route404.jsx";
 import JSZip from 'jszip';
 import Papa from 'papaparse';
+import Przystanki from "./Dane/Przystanki.jsx";
 
 class App extends React.Component {
     state = {
@@ -100,8 +101,8 @@ class App extends React.Component {
                             element={<Dane inputData={this.state.GTFS} onChange={this.handleGTFSUpdate} />}
                         />
                         <Route
-                            path="/kursy"
-                            element={<Dane inputData={this.state.GTFS} onChange={this.handleGTFSUpdate} />}
+                            path="/przystanki"
+                            element={<Przystanki inputData={this.state.GTFS} onChange={this.handleGTFSUpdate} />}
                         />
                         <Route path="*" element={<Route404 />} />
                     </Routes>

@@ -12,6 +12,8 @@ export default function Navigation() {
                 <li className="nav-item">
                     <Link to="/kursy">Edytuj kursy</Link></li>
                 <li className="nav-item">
+                    <Link to="/przystanki">Edytuj przystanki</Link></li>
+                <li className="nav-item">
                     <Link to="/rozklad">Edytuj rozkład</Link></li>
                 <li className="nav-item">
                     <Link to="/generuj">Generuj tabliczki</Link></li>
