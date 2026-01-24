@@ -1,12 +1,17 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Navigation from "./Navigation/Navigation.jsx";
 import Wczytaj from "./Wczytaj/Wczytaj.jsx";
 import Dane from "./Dane/Dane.jsx";
 import Route404 from "./Route404/Route404.jsx";
 import JSZip from 'jszip';
 import Papa from 'papaparse';
+import Przystanki from "./Dane/Przystanki.jsx";
+import Shapes from "./Dane/Shapes.jsx";
+import StopTimes from "./Dane/StopTimes.jsx";
+import Trips from "./Dane/Trips.jsx";
+import GTFS_Routes from "./Dane/GTFS_Routes.jsx";
 
 class App extends React.Component {
     state = {
@@ -68,7 +73,7 @@ class App extends React.Component {
         return (
             <Router>
                 <div className="App">
-                    <Navigation />
+                    <Navigation/>
 
                     <div style={{
                         display: 'flex',
@@ -76,12 +81,6 @@ class App extends React.Component {
                         gap: '10px',
                         margin: '20px 0'
                     }}>
-                        <Link to="/wczytaj">
-                            <button>📂 Wczytaj dane GTFS</button>
-                        </Link>
-                        <Link to="/dane">
-                            <button>📝 Edytuj dane GTFS</button>
-                        </Link>
                         <button
                             onClick={this.exportGTFSZip}
                             disabled={this.state.exporting || Object.values(this.state.GTFS).every(arr => arr.length === 0)}
@@ -93,17 +92,33 @@ class App extends React.Component {
                     <Routes>
                         <Route
                             path="/wczytaj"
-                            element={<Wczytaj onDataLoaded={this.handleGTFSLoad} />}
+                            element={<Wczytaj onDataLoaded={this.handleGTFSLoad}/>}
                         />
                         <Route
                             path="/dane"
-                            element={<Dane inputData={this.state.GTFS} onChange={this.handleGTFSUpdate} />}
+                            element={<Dane inputData={this.state.GTFS} onChange={this.handleGTFSUpdate}/>}
+                        />
+                        <Route
+                            path="/przystanki"
+                            element={<Przystanki inputData={this.state.GTFS} onChange={this.handleGTFSUpdate}/>}
+                        />
+                        <Route
+                            path="/trasy"
+                            element={<GTFS_Routes inputData={this.state.GTFS} onChange={this.handleGTFSUpdate}/>}
+                        />
+                        <Route
+                            path="/ksztalty"
+                            element={<Shapes inputData={this.state.GTFS} onChange={this.handleGTFSUpdate}/>}
+                        />
+                        <Route
+                            path="/czasy-postoju"
+                            element={<StopTimes inputData={this.state.GTFS} onChange={this.handleGTFSUpdate}/>}
                         />
                         <Route
                             path="/kursy"
-                            element={<Dane inputData={this.state.GTFS} onChange={this.handleGTFSUpdate} />}
+                            element={<Trips inputData={this.state.GTFS} onChange={this.handleGTFSUpdate}/>}
                         />
-                        <Route path="*" element={<Route404 />} />
+                        <Route path="*" element={<Route404/>}/>
                     </Routes>
                 </div>
             </Router>
