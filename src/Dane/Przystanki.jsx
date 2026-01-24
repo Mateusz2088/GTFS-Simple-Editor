@@ -43,6 +43,7 @@ class Przystanki extends React.Component {
                 stop_lat: '',
                 stop_lon: '',
             },
+            searchQuery: '',
             mapCenter: calculateMapCenter(this.props.inputData.stops || []), // Ustawienie początkowego centrum mapy
         };
     }
@@ -155,8 +156,24 @@ class Przystanki extends React.Component {
         this.props.onChange(updatedGTFS);
     };
 
+    handleSearchChange = (e) => {
+        this.setState({ searchQuery: e.target.value });
+    };
+
+    filterStops = () => {
+        const {stops, searchQuery} = this.state;
+        if(!searchQuery) return stops;
+        return stops.filter(stop =>
+            (stop.stop_id|| '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (stop.stop_name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (stop.stop_lat || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (stop.stop_lon || '').toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    };
+
     render() {
-        const { stops, formData, mapCenter, selectedStop } = this.state;
+        const { formData, mapCenter, selectedStop, searchQuery} = this.state;
+        const filteredStops = this.filterStops();
 
         return (
             <div>
@@ -213,13 +230,14 @@ class Przystanki extends React.Component {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
-                        {stops.map(stop => (
+                        {filteredStops.map(stop => (
                             <Marker
                                 key={stop.stop_id}
                                 position={[parseFloat(stop.stop_lat), parseFloat(stop.stop_lon)]}
                             >
                                 <Popup>
-                                    {stop.stop_name}
+                                    {stop.stop_name} --
+                                    <button onClick={() => this.handleEdit(stop)}>Edytuj</button>
                                 </Popup>
                             </Marker>
                         ))}
@@ -231,9 +249,16 @@ class Przystanki extends React.Component {
                 </div>
 
                 <div>
+                    <h2>Wyszukiwanie Tras</h2>
+                    <input
+                        type="text"
+                        placeholder="Wyszukaj trasy..."
+                        value={searchQuery}
+                        onChange={this.handleSearchChange}
+                    />
                     <h2>Lista Przystanków</h2>
                     <ul>
-                        {stops.map(stop => (
+                        {filteredStops.map(stop => (
                             <li key={stop.stop_id}>
                                 {stop.stop_name} (Lat: {stop.stop_lat}, Lng: {stop.stop_lon})
                                 <button onClick={() => this.handleEdit(stop)}>Edytuj</button>

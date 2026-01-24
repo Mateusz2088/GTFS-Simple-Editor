@@ -14,7 +14,7 @@ export default function Navigation() {
                 <li className="nav-item">
                     <Link to="/ksztalty">Edytuj kształty</Link></li>
                 <li className="nav-item">
-                    <Link to="/trasy">Edytuj trasy</Link></li>
+                    <Link to="/trasy">Edytuj definicje tras</Link></li>
                 <li className="nav-item">
                     <Link to="/przystanki">Edytuj przystanki</Link></li>
                 <li className="nav-item">

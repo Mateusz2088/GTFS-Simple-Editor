@@ -1,6 +1,6 @@
 import React from 'react';
 
-class GTFS_Routes extends React.Component {
+class Routes extends React.Component {
     state = {
         routes: this.props.inputData.routes || [],
         selectedRoute: null,
@@ -15,6 +15,7 @@ class GTFS_Routes extends React.Component {
             route_color: '',
             route_text_color: '',
         },
+        searchQuery: '', // Dodaj stan dla zapytania wyszukiwania
     };
 
     handleInputChange = (e) => {
@@ -25,6 +26,10 @@ class GTFS_Routes extends React.Component {
                 [name]: value
             }
         }));
+    };
+
+    handleSearchChange = (e) => {
+        this.setState({ searchQuery: e.target.value });
     };
 
     handleSubmit = (e) => {
@@ -112,12 +117,26 @@ class GTFS_Routes extends React.Component {
         this.props.onChange(updatedGTFS);
     };
 
+    // Funkcja do filtrowania tras na podstawie zapytania wyszukiwania
+    filterRoutes = () => {
+        const { routes, searchQuery } = this.state;
+        if (!searchQuery) return routes;
+        return routes.filter(route =>
+            (route.route_id || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (route.route_short_name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (route.route_long_name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (route.route_desc || '').toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    };
+
+
     render() {
-        const { routes, formData, selectedRoute } = this.state;
+        const { formData, selectedRoute, searchQuery } = this.state;
+        const filteredRoutes = this.filterRoutes(); // Filtrowane trasy
 
         return (
             <div>
-                <h1>Trasy</h1>
+                <h1>Definicje tras</h1>
                 <form onSubmit={selectedRoute ? this.handleUpdate : this.handleSubmit}>
                     <div>
                         <label>ID Trasy:</label>
@@ -161,9 +180,19 @@ class GTFS_Routes extends React.Component {
                 </form>
 
                 <div>
+                    <h2>Wyszukiwanie Tras</h2>
+                    <input
+                        type="text"
+                        placeholder="Wyszukaj trasy..."
+                        value={searchQuery}
+                        onChange={this.handleSearchChange}
+                    />
+                </div>
+
+                <div>
                     <h2>Lista Tras</h2>
                     <ul>
-                        {routes.map(route => (
+                        {filteredRoutes.map(route => (
                             <li key={route.route_id}>
                                 {route.route_short_name} - {route.route_long_name}
                                 <button onClick={() => this.handleEdit(route)}>Edytuj</button>
@@ -177,4 +206,4 @@ class GTFS_Routes extends React.Component {
     }
 }
 
-export default GTFS_Routes;
+export default Routes;
